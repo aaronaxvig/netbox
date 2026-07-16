@@ -1148,6 +1148,16 @@ class ScriptListViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'extras/inc/script_list_content.html')
 
 
+class ScriptModuleCreateViewTestCase(TestCase):
+    user_permissions = ['extras.add_scriptmodule']
+
+    def test_cancel_url(self):
+        response = self.client.get(reverse('extras:scriptmodule_add'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['return_url'], reverse('extras:script_list'))
+
+
 class ScriptValidationErrorTestCase(TestCase):
     user_permissions = ['extras.view_script', 'extras.run_script']
 
